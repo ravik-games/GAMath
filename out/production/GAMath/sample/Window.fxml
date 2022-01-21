@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@../CSS/WhiteThemeBackMenu.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Main">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="478.0" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="529.0" minWidth="10.0" prefWidth="400.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Button ellipsisString="" graphicTextGap="0.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </GridPane.margin>
+         <graphic>
+            <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/UI_Settings.png" />
+               </image></ImageView>
+         </graphic>
+      </Button>
+      <ScrollPane fitToHeight="true" vbarPolicy="NEVER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+         <content>
+            <HBox fx:id="EquationHBox" alignment="CENTER" prefWidth="498.0" spacing="10.0">
+               <children>
+                  <TextField fx:id="EqField" alignment="CENTER" maxHeight="35.0" maxWidth="125.0" minHeight="35.0" minWidth="50.0" prefHeight="35.0" prefWidth="50.0" />
+                  <Label fx:id="EqLabel" text="X² +">
+                     <HBox.margin>
+                        <Insets left="1.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField alignment="CENTER" maxHeight="35.0" maxWidth="125.0" minHeight="35.0" minWidth="50.0" prefHeight="35.0" prefWidth="50.0" />
+                  <Label text="X +" />
+                  <TextField alignment="CENTER" maxHeight="35.0" maxWidth="125.0" minHeight="35.0" minWidth="50.0" prefHeight="35.0" prefWidth="50.0" />
+                  <Label text="= 0" />
+               </children>
+            </HBox>
+         </content>
+      </ScrollPane>
+      <ChoiceBox fx:id="EqChoiceBox" prefWidth="150.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+      <Button mnemonicParsing="false" onAction="#GA" text="Найти" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+   </children>
+</GridPane>
