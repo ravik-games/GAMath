@@ -1,9 +1,14 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -19,14 +24,22 @@ public class Main extends Application {
     static int accuracy = 10000;
 
     static int populationSize = 100;
-    //static char[] goal;
+
+    static double[] coef = new double[]{1, -4, 4};
     static List<Genom> population = new ArrayList();
+
+    @FXML
+    ChoiceBox EqChoiceBox;
+    @FXML
+    TextField EqField;
+    @FXML
+    Label EqLabel;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("Window.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setTitle("Math");
+        primaryStage.setScene(new Scene(root, 900, 600));
         primaryStage.show();
     }
 
@@ -34,8 +47,15 @@ public class Main extends Application {
     // x == 2
 
     public static void main(String[] args) {
-        //launch(args);
+        launch(args);
+    }
 
+    public void initialize(){
+        EqChoiceBox.setValue("Степень");
+        EqChoiceBox.setItems(FXCollections.observableArrayList("1 степень", "2 степень", "3 степень", "4 степень", "5 степень", "6 степень"));
+    }
+
+    public void GA(){
         for (int i = 0; i < 100000000; i++) {
             initializePopulation();
 
@@ -48,10 +68,16 @@ public class Main extends Application {
 
             population = childPopulation(population);
         }
+        population.clear();
+    }
+
+    public int[] getCoef(){
+        int[] c =  new int[3];
+        return c;
     }
 
     //create and return child population
-    static List<Genom> childPopulation(List<Genom> population){
+    List<Genom> childPopulation(List<Genom> population){
         int esize = (int) (populationSize * elite);
 
         List<Genom> children = new ArrayList<>();
@@ -70,14 +96,14 @@ public class Main extends Application {
                 num = mutate(num);
             }
 
-            Genom child = new Genom(num, accuracy);
+            Genom child = new Genom(num, accuracy, coef);
             children.add(child);
         }
 
         return children;
     }
 
-    static double mutate(double n){
+    double mutate(double n){
         //int ipos = (int)(Math.random() * goal.length);
         //char delta = (char) (Math.random()*10 + 48);
         //String str = s.substring(0, ipos) + delta + s.substring(ipos + 1);
@@ -86,7 +112,7 @@ public class Main extends Application {
         return n + num;
     }
 
-    static void initializePopulation(){
+    void initializePopulation(){
         //int tsize = goal.length;
 
         for (int i = 0; i < populationSize; i++) {
@@ -97,14 +123,14 @@ public class Main extends Application {
 
             double num = Math.random() * 10;
 
-            Genom citizen = new Genom(num, accuracy);
+            Genom citizen = new Genom(num, accuracy, coef);
             population.add(citizen);
         }
 
         Collections.sort(population);
 
-        for (Genom g : population) {
+        /*for (Genom g : population) {
             System.out.println(g.num+" "+g.getF());
-        }
+        }*/
     }
 }

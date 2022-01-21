@@ -166,7 +166,7 @@
  * http://pixelduke.wordpress.com/2012/10/23/jmetro-windows-8-controls-on-java/
  */
 .button {
-    -fx-padding: 5 22 5 22;   
+    /*-fx-padding: 5 22 5 22;  */
     -fx-border-color: #4769ff;
     -fx-border-width: 0.8;
     -fx-background-radius: 7.5;
