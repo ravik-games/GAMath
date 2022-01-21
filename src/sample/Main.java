@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Scanner;
 
 public class Main extends Application {
 
@@ -25,7 +24,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Window.fxml"));
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
@@ -55,7 +54,7 @@ public class Main extends Application {
     static List<Genom> childPopulation(List<Genom> population){
         int esize = (int) (populationSize * elite);
 
-        List<Genom> children = new ArrayList<Genom>();
+        List<Genom> children = new ArrayList<>();
 
         for (int i = 0; i < esize; i++) {
             children.add(population.get(i));
