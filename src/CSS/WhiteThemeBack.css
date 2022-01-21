@@ -1,0 +1,216 @@
+.background {
+    -fx-background-color: #1d1d1d;
+}
+.root{
+-fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+.label {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: black;
+    -fx-opacity: 0.8;
+}
+
+.label-bright {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: black;
+    -fx-opacity: 1;
+}
+
+.label-header {
+    -fx-font-size: 32pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: black;
+    -fx-opacity: 1;
+}
+
+.table-view {
+    -fx-border-color: #858585;
+    -fx-border-width: 0.75;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-background-color: #fdfdfd;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-size: 35;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: transparent;
+    -fx-border-color: 
+        transparent
+        transparent
+        derive(-fx-base, 80%) 
+        transparent;
+    -fx-border-insets: 0 10 1 0;
+}
+
+.table-view .column-header .label {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-opacity: 1;
+}
+
+.table-view:focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: -fx-focus-color;
+}
+
+.split-pane:horizontal > .split-pane-divider {
+    -fx-border-color: transparent #1d1d1d transparent #1d1d1d;
+    -fx-background-color: transparent, derive(#1d1d1d,20%);
+}
+
+.split-pane {
+    -fx-padding: 1 0 0 0;
+}
+
+.menu-bar {
+    -fx-background-color: #ffffff;
+}
+
+.context-menu {
+    -fx-background-color: derive(#ffffff,80%);
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: black;
+}
+
+.menu-bar .label {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-text-fill: black;
+    -fx-opacity: 0.8;
+}
+
+.menu .left-container {
+    -fx-background-color: black;
+}
+
+.tab {
+        -fx-padding: 5 5 4 5;
+        -fx-border-color: #858585;
+        -fx-border-width: 0;
+        -fx-background-radius: 0;
+        -fx-background-color: #ffffff;
+        -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+        -fx-font-size: 12pt;
+        -fx-text-fill: #2b2b2b;
+        -fx-background-insets: 0;
+        -fx-border-width: 0 0 1 0;
+        -fx-border-color: #4769ff;
+}
+
+.tab:selected
+{
+    -fx-padding: 5 5 1 5;
+    -fx-background-color: #fafafa;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-border-width: 0 0 4 0;
+
+}
+.tab-pane:left *.tab-header-area
+{
+    -fx-background-insets: 0, 0 0 10;
+    -fx-padding: 0.0em 0.0em 0.0em 0.0em;
+}
+
+.tab-pane *.tab-header-background {
+    -fx-background-color: #ededed;
+    -fx-effect: innershadow(two-pass-box , rgba(0,0,0,0.6) , 4, 0.0 , 0 , 0);
+}
+
+.tab-pane{
+    -fx-background-color: #ffffff;
+    -fx-padding: 0 0 0 0;
+}
+.text-field {
+    -fx-font-size: 12pt;
+    -fx-border-color: #858585;
+        -fx-border-width: 0.75;
+        -fx-background-radius: 7.5;
+        -fx-border-radius: 7.5;
+        -fx-background-color: #ededed;
+    -fx-font-family: "Segoe UI Semibold";
+}
+
+.text-area {
+    -fx-font-size: 12pt;
+    -fx-border-color: #858585;
+    -fx-border-width: 0.75;
+    -fx-background-radius: 7.5;
+    -fx-border-radius: 7.5;
+    -fx-background-color: #ededed;
+    -fx-font-family: "Segoe UI Semibold";
+}
+.chart-series-area-fill{
+    -fx-background-color: #ffffff;
+}
+.chart-plot-background {
+    -fx-background-color: #ffffff;
+    -fx-border-color: black;
+    -fx-border-style: solid;
+    -fx-border-width: 0.75;
+    -fx-border-insets: 1;
+}
+
+/* 
+ * Push Button � ����� Metro 
+ * �����: Pedro Duque Vieira
+ * http://pixelduke.wordpress.com/2012/10/23/jmetro-windows-8-controls-on-java/
+ */
+.button {
+    -fx-padding: 5 22 5 22;   
+    -fx-border-color: #858585;
+    -fx-border-width: 0.75;
+    -fx-background-radius: 7.5;
+    -fx-border-radius: 7.5;
+    -fx-background-color: #ededed;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 12pt;
+    -fx-text-fill: #2b2b2b;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+}
+
+.button:hover {
+    -fx-background-color: #b8b8b8;
+    -fx-border-width: 0.75;
+        -fx-background-radius: 7.5;
+        -fx-border-radius: 7.5;
+}
+
+.button:pressed, .button:default:hover:pressed {
+  -fx-background-color: white;
+  -fx-text-fill: #1d1d1d;
+  -fx-border-width: 0.75;
+  -fx-background-radius: 7.5;
+  -fx-border-radius: 7.5;
+}
+
+.button:focused {
+    -fx-border-color: #4769ff;
+    -fx-border-width: 1;
+    -fx-background-radius: 7.5;
+    -fx-border-radius: 7.5;
+    -fx-border-insets: 0;
+}
+
+.button:disabled, .button:default:disabled {
+    -fx-opacity: 0.4;
+    -fx-background-color: #1d1d1d;
+    -fx-text-fill: white;
+}
+
+.button:default {
+    -fx-background-color: -fx-focus-color;
+    -fx-text-fill: #ffffff;
+}
+
+.button:default:hover {
+    -fx-background-color: derive(-fx-focus-color,30%);
+}
