@@ -18,51 +18,52 @@ import java.util.List;
 public class Main extends Application {
 
     //Коэффиценты для ГА
-    static double elite = 0.1;
-    static double survive = 0.5;
-    static double mutation = 0.2;
-    static int accuracy = 10000;
+    double elite = 0.1;
+    double survive = 0.5;
+    double mutation = 0.2;
+    int accuracy = 100;
+    int range = 10;
+    int rootNum = 2;
+    int equation = 1;
 
-    static int populationSize = 100;
+    int populationSize = 100;
 
-    static double[] coef = new double[]{1, -4, 4};
-    static List<Genom> population = new ArrayList();
+    double[] coef = new double[]{1, 2, 3};
+    List<Genom> population = new ArrayList();
 
-    @FXML
-    ChoiceBox EqChoiceBox;
-    @FXML
-    TextField EqField;
-    @FXML
-    Label EqLabel;
+    private Controller controller;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("Window.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Window.fxml"));
+        Parent root = loader.load();
         primaryStage.setTitle("Math");
         primaryStage.setScene(new Scene(root, 900, 600));
         primaryStage.show();
+
+        controller = loader.getController();
+        controller.getMain(this);
     }
 
     // x^2 - 4x + 4 = 0
     // x == 2
 
     public static void main(String[] args) {
-        launch(args);
-    }
+        launch(args); }
 
-    public void initialize(){
-        EqChoiceBox.setValue("Степень");
-        EqChoiceBox.setItems(FXCollections.observableArrayList("1 степень", "2 степень", "3 степень", "4 степень", "5 степень", "6 степень"));
-    }
-
-    public void GA(){
-        for (int i = 0; i < 100000000; i++) {
+    public void GeneticAlgorithm(){
+        for (int i = 0; i < 100; i++) {
             initializePopulation();
 
-            //System.out.println(population.get(0).getF() < 0.3);
+            //System.out.println(population.get(0).getF() + " " + population.get(0).num[0] + " " + population.get(0).num[1]);
 
-            if(population.get(0).getF() < ((double) 1 / ((double) accuracy))){
-                System.out.println("найдено: " + population.get(0).num + " за " + i + " циклов");
+            if(Math.abs(population.get(0).getF()) < ((double) 1 / ((double) accuracy))){
+                System.out.print("найдено: ");
+                for (double n: population.get(0).num) {
+                    System.out.print(n + " ");
+                }
+                System.out.println("за " + i + " циклов");
+                System.out.println(Math.abs(population.get(0).getF()));
                 break;
             }
 
@@ -90,13 +91,16 @@ public class Main extends Application {
             int p1 = (int)(Math.random() * populationSize * survive);
             int p2 = (int)(Math.random() * populationSize * survive);
 
-            double num = (population.get(p1).num + population.get(p2).num) / 2;
+            double num[] = new double[rootNum];
+            for (int j = 0; j < rootNum; j++) {
+                num[j] = (population.get(p1).num[j] + population.get(p2).num[j]) / 2;
 
-            if(Math.random() < mutation){
-                num = mutate(num);
+                if(Math.random() < mutation){
+                    num[j] = mutate(num[j]);
+                }
             }
 
-            Genom child = new Genom(num, accuracy, coef);
+            Genom child = new Genom(num, accuracy, coef, equation);
             children.add(child);
         }
 
@@ -104,9 +108,6 @@ public class Main extends Application {
     }
 
     double mutate(double n){
-        //int ipos = (int)(Math.random() * goal.length);
-        //char delta = (char) (Math.random()*10 + 48);
-        //String str = s.substring(0, ipos) + delta + s.substring(ipos + 1);
         double num = Math.random() * (n / 10);
         num = num * Math.round(Math.random()) == 0 ? -1 : 1;
         return n + num;
@@ -121,16 +122,19 @@ public class Main extends Application {
                 str.append((char) (Math.random()*10 + 48));
             }*/
 
-            double num = Math.random() * 10;
+            double num[] = new double[rootNum];
+            for (int j = 0; j < rootNum; j++) {
+                num[j] = Math.random() * range;
+            }
 
-            Genom citizen = new Genom(num, accuracy, coef);
+            Genom citizen = new Genom(num, accuracy, coef, equation);
             population.add(citizen);
         }
 
         Collections.sort(population);
 
         /*for (Genom g : population) {
-            System.out.println(g.num+" "+g.getF());
+            System.out.println(g.num[0]+" "+g.getF());
         }*/
     }
 }
