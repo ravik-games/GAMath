@@ -19,6 +19,8 @@ public class Controller {
     @FXML
     HBox EqBox;
 
+    TextField eqFields[];
+
     private Main main;
 
     public void getMain(Main main){
@@ -35,28 +37,51 @@ public class Controller {
     }
 
     public void changeEq(ActionEvent actionEvent) {
+
+
+        // Choose equation
         if(actionEvent.getSource() == EqP1){
-            TextField tf = new TextField();
-
-            copyValues(NumField1, tf);
-
-            Label label = new Label();
-            label.setText("123");
-
-            EqBox.getChildren().addAll(tf, label);
-
-
+            showPowerEq(1);
         }else if(actionEvent.getSource() == EqP2){
-
+            showPowerEq(2);
         }else if(actionEvent.getSource() == EqP3){
-
+            showPowerEq(3);
         }else if(actionEvent.getSource() == EqP4){
-
+            showPowerEq(4);
         }else if(actionEvent.getSource() == EqP5){
-
+            showPowerEq(5);
         }else if(actionEvent.getSource() == EqP6){
-
+            showPowerEq(6);
         }
+    }
+
+    private void showPowerEq(int power){
+        // Array for labels
+        String powLabel[] = new String[]{"", "X +", "X² +", "X³ +", "X⁴ +", "X⁵ +", "X⁶ +", "X⁷ +", "X⁸ +", "X⁹ +"};
+        // Clear HBox and TextField array
+        EqBox.getChildren().clear();
+        eqFields = null;
+
+        eqFields = new TextField[power + 1];
+        for (int i = power; i >= 0; i--) {
+            System.out.println(i);
+            eqFields[power] = new TextField();
+            copyValues(NumField1, eqFields[power]);
+
+
+            EqBox.getChildren().add(eqFields[power]);
+
+            if(i > 0) {
+                Label l = new Label();
+                l.setText(powLabel[i]);
+                EqBox.getChildren().add(l);
+            }
+        }
+        Label equals = new Label();
+        equals.setText("= " + /* ADD RESULT VAR */ "0");
+        TextField freePart = new TextField();
+        freePart.setId("eqField0");
+        EqBox.getChildren().addAll(equals);
     }
 
     // Copy values from n1 to n2

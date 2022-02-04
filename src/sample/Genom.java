@@ -26,17 +26,16 @@ public class Genom implements Comparable<Genom> {
         for (int i = 0; i < coef.length; i++){
             f += Math.pow(num[0], coef.length - 1 - i) * coef[i];
         }
-        return f;
+        return Math.abs(f);
     }
 
     private double calcDio(double coef[]){
         double f = 0;
         for (int i = 0; i < num.length; i++){
             f += num[i] * coef[i];
-            System.out.println(num[i] + " * " + coef[i]);
         }
         f += coef[coef.length - 1];
-        return f;
+        return Math.abs(f);
     }
 
     public double getF() {

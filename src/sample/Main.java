@@ -29,7 +29,7 @@ public class Main extends Application {
 
     int populationSize = 100;
 
-    double[] coef = new double[]{1, -4, 4};
+    double[] coef = new double[]{1, -1};
     List<Genom> population = new ArrayList();
 
     private Controller controller;
@@ -135,8 +135,8 @@ public class Main extends Application {
 
         Collections.sort(population);
 
-        /*for (Genom g : population) {
+        for (Genom g : population) {
             System.out.println(g.num[0]+" "+g.getF());
-        }*/
+        }
     }
 }
