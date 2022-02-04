@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@../CSS/WhiteThemeBackMenu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@../CSS/WhiteThemeBackMenu.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="478.0" minWidth="10.0" percentWidth="25.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="529.0" minWidth="10.0" percentWidth="25.0" prefWidth="429.0" />
@@ -31,18 +32,19 @@
                </image></ImageView>
          </graphic>
       </Button>
+      <HBox fx:id="EqBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnSpan="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
       <HBox fx:id="EquationHBox" alignment="CENTER" prefHeight="148.0" prefWidth="538.0" spacing="10.0" GridPane.columnSpan="5" GridPane.rowIndex="2">
          <children>
             <TextField fx:id="NumField6" alignment="CENTER" maxHeight="35.0" maxWidth="125.0" minHeight="35.0" minWidth="50.0" prefHeight="35.0" prefWidth="50.0" />
-            <Label fx:id="EqLabel1111" text="X⁶ +" />
+            <Label text="X⁶ +" />
             <TextField fx:id="NumField5" alignment="CENTER" maxHeight="35.0" maxWidth="125.0" minHeight="35.0" minWidth="50.0" prefHeight="35.0" prefWidth="50.0" />
-            <Label fx:id="EqLabel111" text="X⁵ +" />
+            <Label text="X⁵ +" />
             <TextField fx:id="NumField4" alignment="CENTER" maxHeight="35.0" maxWidth="125.0" minHeight="35.0" minWidth="50.0" prefHeight="35.0" prefWidth="50.0" />
-            <Label fx:id="EqLabel11" text="X⁴ +" />
+            <Label text="X⁴ +" />
             <TextField fx:id="NumField3" alignment="CENTER" maxHeight="35.0" maxWidth="125.0" minHeight="35.0" minWidth="50.0" prefHeight="35.0" prefWidth="50.0" />
-            <Label fx:id="EqLabel1" text="X³ +" />
+            <Label text="X³ +" />
             <TextField fx:id="NumField2" alignment="CENTER" maxHeight="35.0" maxWidth="125.0" minHeight="35.0" minWidth="50.0" prefHeight="35.0" prefWidth="50.0" />
-            <Label fx:id="EqLabel" text="X² +">
+            <Label text="X² +">
                <HBox.margin>
                   <Insets left="1.0" />
                </HBox.margin>
@@ -53,6 +55,16 @@
             <Label text="= 0" />
          </children>
       </HBox>
-      <Button fx:id="Button" mnemonicParsing="false" onAction="#FindRoot" text="Найти" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+      <Button fx:id="Button" mnemonicParsing="false" onAction="#findRoot" text="Найти" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+      <MenuButton mnemonicParsing="false" text="Уравнения" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+        <items>
+          <MenuItem fx:id="EqP1" mnemonicParsing="false" onAction="#changeEq" text="Первой степени" />
+          <MenuItem fx:id="EqP2" mnemonicParsing="false" onAction="#changeEq" text="Второй степени" />
+            <MenuItem fx:id="EqP3" mnemonicParsing="false" onAction="#changeEq" text="Третьей степени" />
+            <MenuItem fx:id="EqP4" mnemonicParsing="false" onAction="#changeEq" text="Четвертой степени" />
+            <MenuItem fx:id="EqP5" mnemonicParsing="false" onAction="#changeEq" text="Пятой степени" />
+            <MenuItem fx:id="EqP6" mnemonicParsing="false" onAction="#changeEq" text="Шестой степени" />
+        </items>
+      </MenuButton>
    </children>
 </GridPane>

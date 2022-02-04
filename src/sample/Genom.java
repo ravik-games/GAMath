@@ -5,17 +5,17 @@ public class Genom implements Comparable<Genom> {
     double fitness = 0;
     int accuracy = 1;
 
-    public Genom(double n [], int acc, double coef[], int equation) {
+    public Genom(double n [], int acc, double coef[], Equations equation) {
         num = n;
         accuracy = acc;
 
         //f = Math.abs(0 - (Math.pow(num, power) * a + (b * num) + c));
         //num * num - (4 * num) + 4
         switch (equation){
-            case 0:
+            case Power:
                 fitness = calcPower(coef);
                 break;
-            case 1:
+            case Diophantine:
                 fitness = calcDio(coef);
                 break;
         }

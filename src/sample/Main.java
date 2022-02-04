@@ -21,14 +21,15 @@ public class Main extends Application {
     double elite = 0.1;
     double survive = 0.5;
     double mutation = 0.2;
+
     int accuracy = 100;
     int range = 10;
-    int rootNum = 2;
-    int equation = 1;
+    int rootNum = 1;
+    Equations equation = Equations.Power;
 
     int populationSize = 100;
 
-    double[] coef = new double[]{1, 2, 3};
+    double[] coef = new double[]{1, -4, 4};
     List<Genom> population = new ArrayList();
 
     private Controller controller;
@@ -51,8 +52,10 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args); }
 
-    public void GeneticAlgorithm(){
-        for (int i = 0; i < 100; i++) {
+    public void GeneticAlgorithm(Equations eq, int rootN){
+        equation = eq;
+        rootNum = rootN;
+        for (int i = 0; i < 1000000; i++) {
             initializePopulation();
 
             //System.out.println(population.get(0).getF() + " " + population.get(0).num[0] + " " + population.get(0).num[1]);
@@ -63,7 +66,6 @@ public class Main extends Application {
                     System.out.print(n + " ");
                 }
                 System.out.println("за " + i + " циклов");
-                System.out.println(Math.abs(population.get(0).getF()));
                 break;
             }
 
