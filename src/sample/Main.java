@@ -1,16 +1,12 @@
 package sample;
 
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -22,14 +18,10 @@ public class Main extends Application {
     double survive = 0.5;
     double mutation = 0.2;
 
-    int accuracy = 100;
-    int range = 10;
-    int rootNum = 1;
-    Equations equation = Equations.Power;
+    EquasionData data;
+    //double[] coef = new double[]{1, 2, 3, 4, -30};
 
     int populationSize = 100;
-
-    double[] coef = new double[]{1, -1};
     List<Genom> population = new ArrayList();
 
     private Controller controller;
@@ -39,7 +31,7 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Window.fxml"));
         Parent root = loader.load();
         primaryStage.setTitle("Math");
-        primaryStage.setScene(new Scene(root, 900, 600));
+        primaryStage.setScene(new Scene(root, 1000, 600));
         primaryStage.show();
 
         controller = loader.getController();
@@ -52,31 +44,36 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args); }
 
-    public void GeneticAlgorithm(Equations eq, int rootN){
-        equation = eq;
-        rootNum = rootN;
-        for (int i = 0; i < 1000000; i++) {
+    public void GeneticAlgorithm(EquasionData vals, int iterations){
+        if(vals == null)
+            return;
+        data = vals;
+        String result = "Программе не удалось найти подходящий ответ или уранение не имеет решений.\nПопробуйте изменить диапазон поиска.";
+
+        for (int i = 0; i < iterations; i++) {
             initializePopulation();
 
-            //System.out.println(population.get(0).getF() + " " + population.get(0).num[0] + " " + population.get(0).num[1]);
-
-            if(Math.abs(population.get(0).getF()) < ((double) 1 / ((double) accuracy))){
-                System.out.print("найдено: ");
-                for (double n: population.get(0).num) {
-                    System.out.print(n + " ");
+            if(Math.abs(population.get(0).getF()) < data.getError()){
+                // Format decimal to remove trail
+                String pattern = "0.";
+                for (int j = 0; j < String.valueOf(data.getError()).length() - 2; j++) {
+                    pattern += "#";
                 }
-                System.out.println("за " + i + " циклов");
+                System.out.println(pattern);
+                DecimalFormat format = new DecimalFormat("0.#");
+                                
+                result = "Найдено:\n";
+                for (double n: population.get(0).num) {
+                    result += format.format(n) + "\n";
+                }
+                result += "За " + i + " циклов.";
                 break;
             }
 
             population = childPopulation(population);
         }
         population.clear();
-    }
-
-    public int[] getCoef(){
-        int[] c =  new int[3];
-        return c;
+        controller.showResult(result);
     }
 
     //create and return child population
@@ -93,8 +90,8 @@ public class Main extends Application {
             int p1 = (int)(Math.random() * populationSize * survive);
             int p2 = (int)(Math.random() * populationSize * survive);
 
-            double num[] = new double[rootNum];
-            for (int j = 0; j < rootNum; j++) {
+            double num[] = new double[data.getRoots()];
+            for (int j = 0; j < data.getRoots(); j++) {
                 num[j] = (population.get(p1).num[j] + population.get(p2).num[j]) / 2;
 
                 if(Math.random() < mutation){
@@ -102,7 +99,7 @@ public class Main extends Application {
                 }
             }
 
-            Genom child = new Genom(num, accuracy, coef, equation);
+            Genom child = new Genom(num, data.getCoef(), data.getType());
             children.add(child);
         }
 
@@ -124,19 +121,19 @@ public class Main extends Application {
                 str.append((char) (Math.random()*10 + 48));
             }*/
 
-            double num[] = new double[rootNum];
-            for (int j = 0; j < rootNum; j++) {
-                num[j] = Math.random() * range;
+            double num[] = new double[data.getRoots()];
+            for (int j = 0; j < data.getRoots(); j++) {
+                num[j] = Math.random() * (data.getRangeMax() - data.getRangeMin()) + data.getRangeMin();
             }
 
-            Genom citizen = new Genom(num, accuracy, coef, equation);
+            Genom citizen = new Genom(num, data.getCoef(), data.getType());
             population.add(citizen);
         }
 
         Collections.sort(population);
 
         for (Genom g : population) {
-            System.out.println(g.num[0]+" "+g.getF());
+            //System.out.println(g.num[0]+" "+g.getF());
         }
     }
 }

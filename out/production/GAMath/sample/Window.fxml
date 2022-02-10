@@ -2,16 +2,18 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@../CSS/WhiteThemeBackMenu.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" stylesheets="@../CSS/WhiteThemeBackMenu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="478.0" minWidth="10.0" percentWidth="25.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="529.0" minWidth="10.0" percentWidth="25.0" prefWidth="429.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="529.0" minWidth="10.0" percentWidth="25.0" prefWidth="157.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="529.0" minWidth="10.0" percentWidth="25.0" prefWidth="400.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="25.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="25.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="25.0" prefWidth="100.0" />
   </columnConstraints>
   <rowConstraints>
       <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -20,41 +22,42 @@
     <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Button ellipsisString="" graphicTextGap="0.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
-         <GridPane.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </GridPane.margin>
-         <graphic>
-            <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Images/UI_Settings.png" />
-               </image></ImageView>
-         </graphic>
-      </Button>
-      <HBox fx:id="EqBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnSpan="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
       <HBox fx:id="EquationHBox" alignment="CENTER" prefHeight="148.0" prefWidth="538.0" spacing="10.0" GridPane.columnSpan="5" GridPane.rowIndex="2">
          <children>
-            <TextField fx:id="NumField6" alignment="CENTER" maxHeight="35.0" maxWidth="125.0" minHeight="35.0" minWidth="50.0" prefHeight="35.0" prefWidth="50.0" />
-            <Label text="X⁶ +" />
-            <TextField fx:id="NumField5" alignment="CENTER" maxHeight="35.0" maxWidth="125.0" minHeight="35.0" minWidth="50.0" prefHeight="35.0" prefWidth="50.0" />
-            <Label text="X⁵ +" />
-            <TextField fx:id="NumField4" alignment="CENTER" maxHeight="35.0" maxWidth="125.0" minHeight="35.0" minWidth="50.0" prefHeight="35.0" prefWidth="50.0" />
-            <Label text="X⁴ +" />
-            <TextField fx:id="NumField3" alignment="CENTER" maxHeight="35.0" maxWidth="125.0" minHeight="35.0" minWidth="50.0" prefHeight="35.0" prefWidth="50.0" />
-            <Label text="X³ +" />
-            <TextField fx:id="NumField2" alignment="CENTER" maxHeight="35.0" maxWidth="125.0" minHeight="35.0" minWidth="50.0" prefHeight="35.0" prefWidth="50.0" />
-            <Label text="X² +">
+            <Label text="Диапазон: от">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <TextField fx:id="minRangeField" alignment="CENTER" maxHeight="35.0" maxWidth="125.0" minHeight="35.0" minWidth="50.0" prefHeight="35.0" prefWidth="50.0" text="-10">
+               <font>
+                  <Font size="14.0" />
+               </font></TextField>
+            <Label text="до">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <TextField fx:id="maxRangeField" alignment="CENTER" maxHeight="35.0" maxWidth="125.0" minHeight="35.0" minWidth="50.0" prefHeight="35.0" prefWidth="50.0" text="10">
+               <font>
+                  <Font size="14.0" />
+               </font></TextField>
+            <Label text="Погрешность:">
+               <font>
+                  <Font size="16.0" />
+               </font>
                <HBox.margin>
-                  <Insets left="1.0" />
-               </HBox.margin>
-            </Label>
-            <TextField fx:id="NumField1" alignment="CENTER" maxHeight="35.0" maxWidth="125.0" minHeight="35.0" minWidth="50.0" prefHeight="35.0" prefWidth="50.0" />
-            <Label text="X +" />
-            <TextField fx:id="NumField" alignment="CENTER" maxHeight="35.0" maxWidth="125.0" minHeight="35.0" minWidth="50.0" prefHeight="35.0" prefWidth="50.0" />
-            <Label text="= 0" />
+                  <Insets left="20.0" />
+               </HBox.margin></Label>
+            <TextField fx:id="accField" alignment="CENTER" maxHeight="35.0" maxWidth="125.0" minHeight="35.0" minWidth="50.0" prefHeight="35.0" prefWidth="75.0" text="0.01">
+               <font>
+                  <Font size="14.0" />
+               </font></TextField>
          </children>
       </HBox>
-      <Button fx:id="Button" mnemonicParsing="false" onAction="#findRoot" text="Найти" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+      <HBox fx:id="EqBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnSpan="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+      <Button fx:id="Button" mnemonicParsing="false" onAction="#findRoot" text="Найти корни" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+         <font>
+            <Font size="16.0" />
+         </font></Button>
       <MenuButton mnemonicParsing="false" text="Уравнения" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
         <items>
           <MenuItem fx:id="EqP1" mnemonicParsing="false" onAction="#changeEq" text="Линейное" />
@@ -64,6 +67,26 @@
             <MenuItem fx:id="EqP5" mnemonicParsing="false" onAction="#changeEq" text="Пятой степени" />
             <MenuItem fx:id="EqP6" mnemonicParsing="false" onAction="#changeEq" text="Шестой степени" />
         </items>
+         <font>
+            <Font size="16.0" />
+         </font>
       </MenuButton>
+      <TextField fx:id="NumField1" alignment="CENTER" maxHeight="35.0" maxWidth="125.0" minHeight="35.0" minWidth="50.0" opacity="0.0" prefHeight="35.0" prefWidth="50.0" GridPane.rowIndex="3" />
+      <Label text="Результаты расчетов" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+         <font>
+            <Font name="Arial Bold" size="24.0" />
+         </font>
+         <GridPane.margin>
+            <Insets top="10.0" />
+         </GridPane.margin>
+      </Label>
+      <TextArea fx:id="resultArea" prefHeight="200.0" prefWidth="200.0" promptText="Здесь будут выведены результаты" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowSpan="4">
+         <GridPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="60.0" />
+         </GridPane.margin>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextArea>
    </children>
 </GridPane>

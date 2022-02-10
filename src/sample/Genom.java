@@ -3,11 +3,9 @@ package sample;
 public class Genom implements Comparable<Genom> {
     double num [];
     double fitness = 0;
-    int accuracy = 1;
 
-    public Genom(double n [], int acc, double coef[], Equations equation) {
+    public Genom(double n [], double coef[], Equations equation) {
         num = n;
-        accuracy = acc;
 
         //f = Math.abs(0 - (Math.pow(num, power) * a + (b * num) + c));
         //num * num - (4 * num) + 4
@@ -44,7 +42,6 @@ public class Genom implements Comparable<Genom> {
 
     @Override
     public int compareTo (Genom gen){
-        //System.out.println(accuracy);
-        return (int)Math.round((fitness - gen.fitness) * accuracy);
+        return Double.compare(fitness, gen.fitness);
     }
 }
