@@ -59,8 +59,7 @@ public class Main extends Application {
                 for (int j = 0; j < String.valueOf(data.getError()).length() - 2; j++) {
                     pattern += "#";
                 }
-                System.out.println(pattern);
-                DecimalFormat format = new DecimalFormat("0.#");
+                DecimalFormat format = new DecimalFormat("0.##");
                                 
                 result = "Найдено:\n";
                 for (double n: population.get(0).num) {
@@ -99,7 +98,7 @@ public class Main extends Application {
                 }
             }
 
-            Genom child = new Genom(num, data.getCoef(), data.getType());
+            Genom child = new Genom(num, data.getCoef(), data.getType(), data.getGoal());
             children.add(child);
         }
 
@@ -126,7 +125,7 @@ public class Main extends Application {
                 num[j] = Math.random() * (data.getRangeMax() - data.getRangeMin()) + data.getRangeMin();
             }
 
-            Genom citizen = new Genom(num, data.getCoef(), data.getType());
+            Genom citizen = new Genom(num, data.getCoef(), data.getType(), data.getGoal());
             population.add(citizen);
         }
 

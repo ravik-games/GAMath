@@ -9,6 +9,16 @@ public class EquasionData {
     private int rangeMax;
     private double error;
 
+    public double getGoal() {
+        return goal;
+    }
+
+    public void setGoal(double goal) {
+        this.goal = goal;
+    }
+
+    private double goal;
+
     public EquasionData(Equations t, double[] coefficient, int rootNum, int minRange, int maxRange, double acc){
         type = t;
         coef = coefficient;
