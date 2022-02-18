@@ -13,7 +13,9 @@ public class Controller {
     @FXML
     Button Button;
     @FXML
-    MenuItem EqP1, EqP2, EqP3, EqP4, EqP5, EqP6;
+    MenuItem EqP, EqLin, EqDio, EqT1, EqT2, EqT3, EqT4, EqT5, EqT6;
+    @FXML
+    MenuButton EqChooseButton;
     @FXML
     HBox EqBox;
     @FXML
@@ -38,21 +40,51 @@ public class Controller {
     }
 
     public void changeEq(ActionEvent actionEvent) {
-
-
         // Choose equation
-        if(actionEvent.getSource() == EqP1){
+        if(actionEvent.getSource() == EqLin){
             showPowerEq(1);
-        }else if(actionEvent.getSource() == EqP2){
-            showPowerEq(2);
-        }else if(actionEvent.getSource() == EqP3){
-            showPowerEq(3);
-        }else if(actionEvent.getSource() == EqP4){
-            showPowerEq(4);
-        }else if(actionEvent.getSource() == EqP5){
-            showPowerEq(5);
-        }else if(actionEvent.getSource() == EqP6){
-            showPowerEq(6);
+            EqChooseButton.setDisable(true);
+        }else if(actionEvent.getSource() == EqP){
+            EqChooseButton.setDisable(false);
+            type = Equations.Power;
+        }else if(actionEvent.getSource() == EqDio){
+            EqChooseButton.setDisable(false);
+            type = Equations.Diophantine;
+        }
+    }
+
+    public void chooseEq(ActionEvent actionEvent) {
+        // Choose equation type
+        if(actionEvent.getSource() == EqT1){
+            if(type == Equations.Power)
+                showPowerEq(1);
+            else
+                showDioEq(1);
+        }else if(actionEvent.getSource() == EqT2){
+            if(type == Equations.Power)
+                showPowerEq(2);
+            else
+                showDioEq(2);
+        }else if(actionEvent.getSource() == EqT3){
+            if(type == Equations.Power)
+                showPowerEq(3);
+            else
+                showDioEq(3);
+        }else if(actionEvent.getSource() == EqT4){
+            if(type == Equations.Power)
+                showPowerEq(4);
+            else
+                showDioEq(4);
+        }else if(actionEvent.getSource() == EqT5){
+            if(type == Equations.Power)
+                showPowerEq(5);
+            else
+                showDioEq(5);
+        }else if(actionEvent.getSource() == EqT6){
+            if(type == Equations.Power)
+                showPowerEq(6);
+            else
+                showDioEq(6);
         }
     }
 
@@ -77,6 +109,36 @@ public class Controller {
                 l.setText(powLabel[i]);
                 EqBox.getChildren().add(l);
             }
+        }
+        Label equals = new Label();
+        equals.setText("= " + /* ADD RESULT VAR */ "0");
+        TextField freePart = new TextField();
+        freePart.setId("eqField0");
+        EqBox.getChildren().addAll(equals);
+    }
+
+    private void showDioEq(int rootN){
+        type = Equations.Diophantine;
+        rootNum = rootN;
+        // Array for labels
+        String[] dioLabel = new String[]{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
+        // Clear HBox and TextField array
+        EqBox.getChildren().clear();
+        eqFields = null;
+
+        eqFields = new TextField[rootN];
+        for (int i = 0; i < rootNum; i++) {
+            eqFields[i] = new TextField();
+            copyValues(NumField1, eqFields[i]);
+
+            EqBox.getChildren().add(eqFields[i]);
+
+            Label l = new Label();
+            l.setText(dioLabel[i] + " +");
+            if(i >= rootN - 1)
+                l.setText(dioLabel[i]);
+            EqBox.getChildren().add(l);
+
         }
         Label equals = new Label();
         equals.setText("= " + /* ADD RESULT VAR */ "0");
