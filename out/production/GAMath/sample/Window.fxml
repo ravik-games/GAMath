@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" stylesheets="@../CSS/WhiteThemeBackMenu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1300.0" stylesheets="@../CSS/WhiteThemeBackMenu.css" xmlns="http://javafx.com/javafx/8.0.261" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="478.0" minWidth="10.0" percentWidth="25.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="529.0" minWidth="10.0" percentWidth="25.0" prefWidth="429.0" />
@@ -51,6 +61,19 @@
                <font>
                   <Font size="14.0" />
                </font></TextField>
+            <Label text="Количество корней">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="rootNumField" alignment="CENTER" maxHeight="35.0" maxWidth="125.0" minHeight="35.0" minWidth="25.0" prefHeight="35.0" prefWidth="50.0" text="2">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
          </children>
       </HBox>
       <HBox fx:id="EqBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnSpan="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
@@ -58,14 +81,11 @@
          <font>
             <Font size="16.0" />
          </font></Button>
-      <MenuButton mnemonicParsing="false" text="Уравнения" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+      <MenuButton mnemonicParsing="false" text="Уравнения" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
         <items>
-          <MenuItem fx:id="EqP1" mnemonicParsing="false" onAction="#changeEq" text="Линейное" />
-          <MenuItem fx:id="EqP2" mnemonicParsing="false" onAction="#changeEq" text="Второй степени" />
-            <MenuItem fx:id="EqP3" mnemonicParsing="false" onAction="#changeEq" text="Третьей степени" />
-            <MenuItem fx:id="EqP4" mnemonicParsing="false" onAction="#changeEq" text="Четвертой степени" />
-            <MenuItem fx:id="EqP5" mnemonicParsing="false" onAction="#changeEq" text="Пятой степени" />
-            <MenuItem fx:id="EqP6" mnemonicParsing="false" onAction="#changeEq" text="Шестой степени" />
+          <MenuItem fx:id="EqLin" mnemonicParsing="false" onAction="#changeEq" text="Линейное" />
+            <MenuItem fx:id="EqP" mnemonicParsing="false" onAction="#changeEq" text="Степенное" />
+            <MenuItem fx:id="EqDio" mnemonicParsing="false" onAction="#changeEq" text="Диофантово" />
         </items>
          <font>
             <Font size="16.0" />
@@ -80,7 +100,7 @@
             <Insets top="10.0" />
          </GridPane.margin>
       </Label>
-      <TextArea fx:id="resultArea" prefHeight="200.0" prefWidth="200.0" promptText="Здесь будут выведены результаты" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowSpan="4">
+      <TextArea fx:id="resultArea" prefHeight="200.0" prefWidth="266.0" promptText="Здесь будут выведены результаты" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowSpan="2">
          <GridPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="60.0" />
          </GridPane.margin>
@@ -88,5 +108,37 @@
             <Font size="16.0" />
          </font>
       </TextArea>
+      <LineChart fx:id="lineChart" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="2">
+        <xAxis>
+          <NumberAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+         <GridPane.margin>
+            <Insets bottom="60.0" left="5.0" right="5.0" top="5.0" />
+         </GridPane.margin>
+      </LineChart>
+      <MenuButton fx:id="EqChooseButton" disable="true" layoutX="304.0" layoutY="66.0" mnemonicParsing="false" text="Вид" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+         <items>
+            <MenuItem fx:id="EqT1" mnemonicParsing="false" onAction="#chooseEq" text="Первая" />
+            <MenuItem fx:id="EqT2" mnemonicParsing="false" onAction="#chooseEq" text="Вторая" />
+            <MenuItem fx:id="EqT3" mnemonicParsing="false" onAction="#chooseEq" text="Третья" />
+            <MenuItem fx:id="EqT4" mnemonicParsing="false" onAction="#chooseEq" text="Четвертая" />
+            <MenuItem fx:id="EqT5" mnemonicParsing="false" onAction="#chooseEq" text="Пятая" />
+            <MenuItem fx:id="EqT6" mnemonicParsing="false" onAction="#chooseEq" text="Шестая" />
+         </items>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </MenuButton>
+      <Button fx:id="Button1" mnemonicParsing="false" onAction="#openGraphWindow" text="Открыть график в новом окне" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+         <font>
+            <Font size="16.0" />
+         </font>
+         <GridPane.margin>
+            <Insets bottom="20.0" />
+         </GridPane.margin>
+      </Button>
    </children>
 </GridPane>

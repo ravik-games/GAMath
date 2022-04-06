@@ -1,15 +1,24 @@
 package sample;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class Controller {
     @FXML
-    TextField NumField1, minRangeField, maxRangeField, accField;
+    TextField NumField1, minRangeField, maxRangeField, accField, rootNumField;
     @FXML
     Button Button;
     @FXML
@@ -22,11 +31,16 @@ public class Controller {
     TextArea resultArea;
 
     TextField eqFields[];
+    @FXML
+    LineChart lineChart;
+    @FXML
+    LineChart bigChart;
 
+    EquasionData ED;
     private Main main;
     Equations type;
 
-    int rootNum;
+    int argNum;
 
     public void getMain(Main main){
         this.main = main;
@@ -37,6 +51,51 @@ public class Controller {
 
     public void findRoot(ActionEvent actionEvent) {
         main.GeneticAlgorithm(getData(), 10000);
+    }
+
+    //Graph
+    public void drawGraph(boolean bChart){
+        if(ED == null)
+            return;
+        double f = 0;
+
+        ObservableList<XYChart.Data<Number, Number>> data = FXCollections.observableArrayList();
+
+        for(int j = ED.getRangeMin(); j <= ED.getRangeMax(); j++) {
+            switch (ED.getType()){
+                case Power:
+                    for (int i = 0; i < ED.getCoef().length; i++) {
+                        f += Math.pow(j, ED.getCoef().length - 1 - i) * ED.getCoef()[i];
+                    }
+                    f = f - ED.getGoal();
+                    break;
+                case Diophantine:
+                    /*for (int i = 0; i < ED.getRoots().length; i++){
+                        f += ED.getRoots()[i] * ED.getRoots()[i];
+                    }
+                    System.out.println(f);
+                    f += ED.getCoef()[ED.getCoef().length - 1];
+                    f = f - ED.getGoal();
+                    break;*/
+                    lineChart.getData().clear();
+                    return;
+            }
+            data.add( new XYChart.Data<Number, Number>(j, f));
+            f = 0;
+        }
+        
+        XYChart.Series<Number, Number> s1 = new XYChart.Series<>();
+        s1.setName("График функции");
+        s1.getData().addAll(data);
+        
+        if(bChart){
+            System.out.println(bigChart);
+            bigChart.getData().clear();
+            bigChart.getData().add(s1);
+        }else{
+            lineChart.getData().clear();
+            lineChart.getData().add(s1);
+        }
     }
 
     public void changeEq(ActionEvent actionEvent) {
@@ -90,7 +149,7 @@ public class Controller {
 
     private void showPowerEq(int power){
         type = Equations.Power;
-        rootNum = 1;
+        argNum = 1;
         // Array for labels
         String[] powLabel = new String[]{"", "X +", "X² +", "X³ +", "X⁴ +", "X⁵ +", "X⁶ +", "X⁷ +", "X⁸ +", "X⁹ +"};
         // Clear HBox and TextField array
@@ -119,7 +178,7 @@ public class Controller {
 
     private void showDioEq(int rootN){
         type = Equations.Diophantine;
-        rootNum = rootN;
+        argNum = rootN;
         // Array for labels
         String[] dioLabel = new String[]{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
         // Clear HBox and TextField array
@@ -127,7 +186,7 @@ public class Controller {
         eqFields = null;
 
         eqFields = new TextField[rootN];
-        for (int i = 0; i < rootNum; i++) {
+        for (int i = 0; i < argNum; i++) {
             eqFields[i] = new TextField();
             copyValues(NumField1, eqFields[i]);
 
@@ -141,7 +200,7 @@ public class Controller {
 
         }
         Label equals = new Label();
-        equals.setText("= " + /* ADD RESULT VAR */ "0");
+        equals.setText("= " + "0");
         TextField freePart = new TextField();
         freePart.setId("eqField0");
         EqBox.getChildren().addAll(equals);
@@ -158,6 +217,7 @@ public class Controller {
         n2.setMaxHeight(n1.getMaxHeight());
     }
 
+    // parse user data
     public EquasionData getData(){
         if(eqFields == null || minRangeField == null || maxRangeField == null || accField == null) {
             return null;
@@ -170,12 +230,29 @@ public class Controller {
         int minR = Integer.parseInt(minRangeField.getText());
         int maxR = Integer.parseInt(maxRangeField.getText());
         double accuracy = Double.parseDouble(accField.getText());
+        int rootN = Integer.parseInt(rootNumField.getText());
 
-        return new EquasionData(type, coef, rootNum, minR, maxR, accuracy);
+        return new EquasionData(type, coef, argNum, minR, maxR, accuracy, rootN, 1000);
     }
 
     public void showResult(String text){
         resultArea.setText(text);
+    }
+
+    public void openGraphWindow(ActionEvent actionEvent) {
+        Parent root;
+        try {
+            root = FXMLLoader.load(getClass().getResource("Graph.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Graph");
+            stage.setScene(new Scene(root, 1600, 900));
+            stage.show();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        drawGraph(true);
     }
 }
 

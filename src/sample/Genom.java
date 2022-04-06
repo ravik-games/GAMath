@@ -4,7 +4,8 @@ public class Genom implements Comparable<Genom> {
     double fitness = 0;
     double[] num;
 
-    public Genom(double n [], double coef[], Equations equation, double goal) {
+    public Genom(double[] n, double[] coef, Equations equation, double goal) {
+
         num = n;
         //f = Math.abs(0 - (Math.pow(num, power) * a + (b * num) + c));
         //num * num - (4 * num) + 4
@@ -31,7 +32,7 @@ public class Genom implements Comparable<Genom> {
         for (int i = 0; i < num.length; i++){
             f += num[i] * coef[i];
         }
-        f += coef[coef.length - 1];
+        f += coef[coef.length - 1]; // ?
         return Math.abs(goal - f);
     }
 

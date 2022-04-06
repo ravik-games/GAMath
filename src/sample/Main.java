@@ -31,7 +31,7 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Window.fxml"));
         Parent root = loader.load();
         primaryStage.setTitle("Math");
-        primaryStage.setScene(new Scene(root, 1000, 600));
+        primaryStage.setScene(new Scene(root, 1300, 800));
         primaryStage.show();
 
         controller = loader.getController();
@@ -48,30 +48,94 @@ public class Main extends Application {
         if(vals == null)
             return;
         data = vals;
-        String result = "Программе не удалось найти подходящий ответ или уранение не имеет решений.\nПопробуйте изменить диапазон поиска.";
 
-        for (int i = 0; i < iterations; i++) {
-            initializePopulation();
+        Genom answers[] = new Genom[data.getRootNumber()];
+        int ansNum = 0;
+        int antiInfinite = data.getIterations();
 
-            if(Math.abs(population.get(0).getF()) < data.getError()){
-                // Format decimal to remove trail
-                String pattern = "0.";
-                for (int j = 0; j < String.valueOf(data.getError()).length() - 2; j++) {
-                    pattern += "#";
-                }
-                DecimalFormat format = new DecimalFormat("0.##");
-                                
-                result = "Найдено:\n";
-                for (double n: population.get(0).num) {
-                    result += format.format(n) + "\n";
-                }
-                result += "За " + i + " циклов.";
+        String result = "Программе не удалось найти подходящий ответ\nили уравнение не имеет решений." +
+                "\nПопробуйте изменить диапазон поиска.";
+
+        for (int j = 0; j < data.getRootNumber(); j++) {
+            // prevent algorithm to create infinite loop
+            if(antiInfinite <= 0)
                 break;
-            }
 
-            population = childPopulation(population);
+            population.clear();
+            for (int i = 0; i < iterations; i++) {
+                initializePopulation();
+
+                if(Math.abs(population.get(0).getF()) < data.getError()){
+
+                    boolean condition = false;
+
+                    answerCheckLoop:
+                    {
+                        for (Genom g : answers) {
+                            if(g != null) {
+                                for (double num : g.num) {
+                                    for (double curNum : population.get(0).num) {
+                                        //check for unique answer
+                                        if (Math.abs(num - curNum) < data.getError()) {
+                                            condition = true;
+                                            break answerCheckLoop;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if(condition){
+                        j--;
+                        antiInfinite--;
+
+                        /*result += " Решение " + (ansNum) + ":\n" +
+                                "   НЕ НАЙДЕНО\n";*/
+
+                        break;
+                    }
+
+                    ansNum++;
+                    answers[ansNum - 1] = population.get(0);
+
+                    // Format decimal to remove trail
+                    String pattern = "#.";
+                    for (int o = 0; o < String.valueOf(data.getError()).length() - 4; o++) {
+                        pattern += "#";
+                    }
+                    DecimalFormat format = new DecimalFormat(pattern);
+
+                    if(ansNum == 1) {
+                        result = "Найдено:\n";
+                    }
+                    result += " Решение " + (ansNum) + ":\n";
+                    for (int k = 0; k < answers[ansNum - 1].num.length; k++) {
+                        switch (data.getType()){
+                            default:
+                                result += "     X = " + format.format(answers[ansNum - 1].num[k]) + "\n";
+                                break;
+                            case Diophantine:
+                                result += "     " + (char)(k + 65) + " = " + format.format(answers[ansNum - 1].num[k]) + "\n";
+                                break;
+                        }
+
+                    }
+
+                    break;
+                }else{
+
+                }
+                population = childPopulation(population);
+            }
         }
-        population.clear();
+
+        if(answers[0] != null) {
+            vals.setRoots(answers[0].num);
+            vals.setRoots(answers[0].num);
+            controller.ED = vals;
+            controller.drawGraph(false);
+        }
+
         controller.showResult(result);
     }
 
@@ -89,8 +153,8 @@ public class Main extends Application {
             int p1 = (int)(Math.random() * populationSize * survive);
             int p2 = (int)(Math.random() * populationSize * survive);
 
-            double num[] = new double[data.getRoots()];
-            for (int j = 0; j < data.getRoots(); j++) {
+            double num[] = new double[data.getArgNum()];
+            for (int j = 0; j < data.getArgNum(); j++) {
                 num[j] = (population.get(p1).num[j] + population.get(p2).num[j]) / 2;
 
                 if(Math.random() < mutation){
@@ -120,8 +184,8 @@ public class Main extends Application {
                 str.append((char) (Math.random()*10 + 48));
             }*/
 
-            double num[] = new double[data.getRoots()];
-            for (int j = 0; j < data.getRoots(); j++) {
+            double num[] = new double[data.getArgNum()];
+            for (int j = 0; j < data.getArgNum(); j++) {
                 num[j] = Math.random() * (data.getRangeMax() - data.getRangeMin()) + data.getRangeMin();
             }
 

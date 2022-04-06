@@ -2,12 +2,15 @@ package sample;
 
 public class EquasionData {
     private double[] coef;
-    private int roots;
+    private int argNum;
     private Equations type;
 
     private int rangeMin;
     private int rangeMax;
     private double error;
+    private double[] roots;
+    private int rootNumber;
+    private int iterations;
 
     public double getGoal() {
         return goal;
@@ -19,13 +22,17 @@ public class EquasionData {
 
     private double goal;
 
-    public EquasionData(Equations t, double[] coefficient, int rootNum, int minRange, int maxRange, double acc){
+    public EquasionData(Equations t, double[] coefficient, int argN,
+                        int minRange, int maxRange, double acc, int rootN,
+                        int iter){
         type = t;
         coef = coefficient;
-        roots = rootNum;
+        argNum = argN;
         rangeMin = minRange;
         rangeMax = maxRange;
-        error = acc;
+        error = acc / 100;
+        rootNumber = rootN;
+        iterations = iter;
     }
 
     public double[] getCoef() {
@@ -36,12 +43,12 @@ public class EquasionData {
         this.coef = coef;
     }
 
-    public int getRoots() {
-        return roots;
+    public int getArgNum() {
+        return argNum;
     }
 
-    public void setRoots(int roots) {
-        this.roots = roots;
+    public void setArgNum(int argNum) {
+        this.argNum = argNum;
     }
 
     public Equations getType() {
@@ -75,4 +82,15 @@ public class EquasionData {
     public void setError(double error) {
         this.error = error;
     }
+
+    public double[] getRoots() { return roots; }
+
+    public void setRoots(double[] roots) { this.roots = roots; }
+
+    public int getRootNumber() { return rootNumber; }
+
+    public void setRootNumber(int rootNumber) { this.rootNumber = rootNumber; }
+    public int getIterations() { return iterations; }
+
+    public void setIterations(int iterations) { this.iterations = iterations; }
 }

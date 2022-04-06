@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" stylesheets="@../CSS/WhiteThemeBackMenu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1300.0" stylesheets="@../CSS/WhiteThemeBackMenu.css" xmlns="http://javafx.com/javafx/8.0.261" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="478.0" minWidth="10.0" percentWidth="25.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="529.0" minWidth="10.0" percentWidth="25.0" prefWidth="429.0" />
@@ -61,6 +61,19 @@
                <font>
                   <Font size="14.0" />
                </font></TextField>
+            <Label text="Количество корней">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="rootNumField" alignment="CENTER" maxHeight="35.0" maxWidth="125.0" minHeight="35.0" minWidth="25.0" prefHeight="35.0" prefWidth="50.0" text="2">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
          </children>
       </HBox>
       <HBox fx:id="EqBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnSpan="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
@@ -95,7 +108,7 @@
             <Font size="16.0" />
          </font>
       </TextArea>
-      <LineChart GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="2">
+      <LineChart fx:id="lineChart" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="2">
         <xAxis>
           <NumberAxis side="BOTTOM" />
         </xAxis>
@@ -103,7 +116,7 @@
           <NumberAxis side="LEFT" />
         </yAxis>
          <GridPane.margin>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            <Insets bottom="60.0" left="5.0" right="5.0" top="5.0" />
          </GridPane.margin>
       </LineChart>
       <MenuButton fx:id="EqChooseButton" disable="true" layoutX="304.0" layoutY="66.0" mnemonicParsing="false" text="Вид" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
@@ -119,5 +132,13 @@
             <Font size="16.0" />
          </font>
       </MenuButton>
+      <Button fx:id="Button1" mnemonicParsing="false" onAction="#openGraphWindow" text="Открыть график в новом окне" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+         <font>
+            <Font size="16.0" />
+         </font>
+         <GridPane.margin>
+            <Insets bottom="20.0" />
+         </GridPane.margin>
+      </Button>
    </children>
 </GridPane>
