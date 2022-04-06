@@ -1,2 +1,2 @@
 # GAMath
-Application for solving power equations using the Genetic Algorithm and Java.
+Application for solving equations using the Genetic Algorithm and Java.
